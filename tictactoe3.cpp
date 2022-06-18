@@ -5,7 +5,13 @@
 #include <algorithm>
 #include <iostream>
 #include "tictactoe3.h"
+#include "<cmath>"
 using namespace std;
+
+tictactoe3::tictactoe3() {
+    player = 0;
+    outcome = 0;
+}
 
 tictactoe3::tictactoe3(int board[3][3]) {
     for (int i = 0; i < 3; i++) {
@@ -13,17 +19,44 @@ tictactoe3::tictactoe3(int board[3][3]) {
             state[i][j] = board[i][j];
         }
     }
+    player = 0;
+    // ongoing
+    outcome = 4;
+    moves = 0;
 }
 
 bool tictactoe3::is_win(int tile, int action) {
+    int i = tile/3;
+    int j = tile%3;
+    // columns and rows
+    if (state[i][j] == state[(i+1)%3][j] == state[(i-1)%3][j] ||
+    state[i][j] == state[i][(j+1)%3] == state[i][(j-1)%3])
+        return true;
+    
+    // on a diagonal
+    if (i == j) {
+        if (state[i][j] == state[(i+1)%3][(j+1)%3] == state[(i-1)%3][(j-1)%3])
+            return true;
+    }
+    if (i == 2-j) {
+        if (state[i][j] == state[(i+1)%3][(j-1)%3] == state[(i-1)%3][(j+1)%3])
+            return true;
+    }
     return false;
 }
 
 void tictactoe3::move(int tile, int action) {
-    return;
+    // first player affects first digit, second affects second, etc.
+    state[tile/3][tile%3] += pow(action, 2-player);
+    if (is_win(tile, action))
+        outcome = player;
+    else if (moves == 27)
+        outcome = 3;
+    player = (player + 1) % 3;
 }
 
 void tictactoe3::unmove(int tile, int action) {
+    // this may not be needed.
     return;
 }
 

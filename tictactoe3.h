@@ -6,8 +6,8 @@
 class tictactoe3 {
 public:
     int player;
-
-    // ongoing, p1-p3 win, tie, 
+    int moves;
+    // p1-p3 win, tie, ongoing
     int outcome;
 
     // you can make this a lot better with bitmasking but until efficiency is a priority i'm gonna go with ease of implementation.
