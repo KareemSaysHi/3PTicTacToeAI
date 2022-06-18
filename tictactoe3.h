@@ -15,7 +15,7 @@ public:
 
     tictactoe3();
 
-    tictactoe3(int board[3][3]) { memcpy(board, state, 9*sizeof(board[0][0])); }
+    tictactoe3(int board[3][3]);
 
     bool is_win(int tile, int action);
 
@@ -25,7 +25,7 @@ public:
 
     bool legal(int tile, int action);
 
-    int hash(Piece p1, Piece p2, Piece p3) { return p1*100 + p2*10 + p3*1; }
+    int hash(Piece p1, Piece p2, Piece p3);
 
     Piece* unhash(int n);
 

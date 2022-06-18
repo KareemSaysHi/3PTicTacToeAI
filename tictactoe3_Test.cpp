@@ -7,9 +7,12 @@
 #include "tictactoe3.h"
 
 TEST_CASE("Testing the display function") {
-    int state[3][3] = {{0,1,2}, {4,5,6}, {8,9,10}};
+    int state[3][3] = {{0,1,2}, {3,4,5}, {6,7,8}};
     auto board = new tictactoe3(state);
     board->display();
+    int state1[3][3] = {{0,129,231}, {312,457,582}, {624,783,899}};
+    auto board1 = new tictactoe3(state1);
+    board1->display();
     CHECK(1 == 1);
 }
 
