@@ -7,130 +7,40 @@
 #include "tictactoe3.h"
 using namespace std;
 
-tictactoe3::tictactoe3(int r, int c, int num):
-    state(std::vector<std::vector<int>>(r, std::vector<int>(c, 0))),
-    rows(r),
-    columns(c),
-    inarow(num),
-    player(1){}
-
-int tictactoe3::count(int column, int row, int offset_row, int offset_column) {
-    // Counts number of pieces in a certain direction, excluding the starting piece
-
-    int mark = state[row][column];
-    for (int i = 0; i < this->inarow; i++) {
-        int r = row + offset_row * i;
-        int c = column + offset_column * i;
-        // if current mark doesn't fit into the sequence, stop counting
-        if (r < 0 || c < 0 || c >= columns || r >= rows || state[r][c] != mark) {
-            return i - 1;
-        }
-    }
-    return this->inarow;
+bool tictactoe3::is_win(int tile, int action) {
+    return false;
 }
 
-bool tictactoe3::is_win(int action) {
-    // determine row winning piece was placed in
-    int row = 0;
-    for (int i = 0; i < rows; i++) {
-        if (state[i][action] == 0) {
-            row += 1;
-        }
-    }
-
-    // check for connect 4s in all directions
-    return (
-            ((count(action, row, 1, 0)) >= inarow - 1) ||
-            ((count(action, row, 0, 1) + count(action, row, 0, -1)) >= (inarow - 1)) ||
-            ((count(action, row, -1, -1) + count(action, row, 1, 1)) >= (inarow - 1)) ||
-            ((count(action, row, -1, 1) + count(action, row, 1, -1)) >= (inarow - 1))
-    );
+void tictactoe3::move(int tile, int action) {
+    return;
 }
 
-bool tictactoe3::is_draw() {
-    int zeros = std::count(this->state[0].begin(), this->state[0].end(), 0);
-    if (zeros == 0) {
-        return true;
-    }
-    else {
-        return false;
-    }
+void tictactoe3::unmove(int tile, int action) {
+    return;
 }
 
-std::vector<int> tictactoe3::is_terminal(int action) {
-    if (is_win(action)) {
-        return {1, 1};
-    }
-    else if (is_draw()) {
-        return {1, 0};
-    }
-    else {
-        return {0, 0};
-    }
+vector<Piece> unhash(int n) {
+    Piece p1 = static_cast<Piece>(n%100);
+    Piece p2 = static_cast<Piece>(n%10 - 10*p1);
+    Piece p3 = static_cast<Piece>(n - 100*p1 - 10*p2);
+    return {p1, p2, p3};
 }
 
-void tictactoe3::move(int action) {
-    int row_num = rows - 1;
-    for (int row = rows - 1; row >= 0; row--) {
-        if (state[row][action] == 0) {
-            break;
-        }
+void tictactoe3::display() {
+    string ESC = "\033[";
+    string RED = "31";
+    string GREEN = "32";
+    string BLUE = "34";
 
-        row_num--;
-    }
-
-    // Make board flipped for ease of use
-    state[row_num][action] = player;
-    player *= -1;
-}
-
-void tictactoe3::unmove(int action) {
-    int row_num = rows;
-    for (int row = rows - 1; row < rows; row--) {
-        if (state[row][action] == 0) {
-            break;
-        }
-
-        row_num--;
-    }
-    state[row_num][action] = 0;
-    player *= -1;
-}
-
-void tictactoe3::flip() {
-    std::vector<int> state_copy;
-    for (auto v: this->state) {
-        transform(v.begin(), v.end(), v.begin(), [](int &c){ return -c; });
-    }
-}
-
-std::vector<int> tictactoe3::legal() {
-    std::vector<int> legal_actions = std::vector<int>(this->columns, 0);
-    int i = 0;
-    for (auto mark: this->state[0]) {
-        if (mark == 0) {
-            legal_actions[i] = 1;
-        }
-        i += 1;
-    }
-    return legal_actions;
-}
-
-void tictactoe3::display() const {
     std::cout << "" << std::endl;
-    for (auto vec: state) {
-        for (int i = 0; i < vec.size(); i++) {
-            if (vec[i] == 1) {
-                std::cout << "+" << vec[i] << " " << std::flush;
-            }
-            else if (vec[i] == 0){
-                std::cout << " " << vec[i] << " " << std::flush;
-            }
-            else{
-                std::cout << vec[i] << " " << std::flush;
-            }
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            vector<Piece> pieces = unhash(state[i][j]);
+            std::cout << ESC + RED << pieces[0] << ESC;
+            std::cout << ESC + GREEN << pieces[1] << ESC;
+            std::cout << ESC + BLUE << pieces[2] << ESC << " ";
         }
-        std::cout << "" << std::endl;
+        std::cout << "\n";
     }
-    std::cout << "" << std::endl;
+    std::cout << "\n";
 }

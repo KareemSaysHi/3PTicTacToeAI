@@ -2,48 +2,35 @@
 #define tictactoe3_h
 
 #include <vector>
-
+#include "pieces.h"
 class tictactoe3 {
 public:
-    const int rows;
-    const int columns;
-    const int inarow;
+    int player = 0;
 
-    tictactoe3(int rows, int columns, int inarow);
+    // ongoing, p1-p3 win, tie, 
+    int outcome;
 
-    int count(int column, int row, int offset_row, int offset_column);
+    int state[3][3];
 
-    bool is_win(int action);
+    tictactoe3();
 
-    bool is_draw();
+    tictactoe3(int board[3][3]) { memcpy(board, state, sizeof(board)); }
 
-    std::vector<int> is_terminal(int action);
+    bool is_win(int tile, int action);
 
-    void move(int action);
+    vector<int> is_terminal(int action);
 
-    void unmove(int action);
+    void move(int tile, int action);
 
-    void flip();
+    void unmove(int tile, int action);
 
-    std::vector<int> legal();
+    bool legal(int tile, int action);
 
-    std::vector<std::vector<int>> inline get_state() const{
-        return state;
-    }
+    int hash(Piece p1, Piece p2, Piece p3) { return p1*100 + p2*10 + p3*1; }
 
-    void set_state(std::vector<std::vector<int>> board) {
-        state = board;
-    }
+    vector<Piece> unhash(int n);
 
-    void display() const;
-
-    int inline get_player() const{
-        return player;
-    }
-
-private:
-    std::vector<std::vector<int>> state;
-    int player = 1;
+    void display();
 };
 
 #endif

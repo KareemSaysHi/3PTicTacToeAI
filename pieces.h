@@ -1,11 +1,12 @@
-enum Pieces {
-    redS = 0,
-    greenS = 1,
-    blueS = 2,
-    redM = 3,
-    greenM = 4,
-    blueM = 5,
-    redL = 6,
-    greenL = 7,
-    blueL = 8,
+enum Piece {
+    empty = 0,
+    redS = 1,
+    greenS = 2,
+    blueS = 3,
+    redM = 4,
+    greenM = 5,
+    blueM = 6,
+    redL = 7,
+    greenL = 8,
+    blueL = 9,
 };
