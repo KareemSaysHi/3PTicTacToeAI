@@ -45,18 +45,19 @@ void tictactoe3::display() {
     string RED = "31";
     string GREEN = "32";
     string BLUE = "34";
+    string colors[] = {RED, GREEN, BLUE};
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             Piece *pieces = unhash(state[i][j]);
             for (int k = 0; k < 3; k++) {
                 if (pieces[k] == Piece::empty)
                     std::cout << " ";
-                else if (pieces[k] == redS || pieces[k] == redM || pieces[k] == redL)
-                    std::cout << ESC + RED + "m" << pieces[k] << ESC + "m";
-                else if (pieces[k] == greenS || pieces[k] == greenM || pieces[k] == greenL)
-                    std::cout << ESC + GREEN + "m" << pieces[k] << ESC + "m";
+                else if (pieces[k] == small)
+                    std::cout << ESC + colors[k] + "m" << "S" << ESC + "m";
+                else if (pieces[k] == medium)
+                    std::cout << ESC + colors[k] + "m" << "M" << ESC + "m";
                 else
-                    std::cout << ESC + BLUE + "m" << pieces[k] << ESC + "m";
+                    std::cout << ESC + colors[k] + "m" << "L" << ESC + "m";
             }
             std::cout << " ";
         }
