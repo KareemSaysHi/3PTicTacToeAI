@@ -19,7 +19,7 @@ void tictactoe3::unmove(int tile, int action) {
     return;
 }
 
-Piece* unhash(int n) {
+Piece* tictactoe3::unhash(int n) {
     Piece p1 = static_cast<Piece>(n%100);
     Piece p2 = static_cast<Piece>(n%10 - 10*p1);
     Piece p3 = static_cast<Piece>(n - 100*p1 - 10*p2);

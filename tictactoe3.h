@@ -1,6 +1,7 @@
 #ifndef tictactoe3_h
 #define tictactoe3_h
 
+#include <cstring>
 #include "pieces.h"
 class tictactoe3 {
 public:
