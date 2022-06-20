@@ -47,17 +47,14 @@ bool tictactoe3::is_win(int tile, int action) {
     return false;
 }
 
-void tictactoe3::move(int tile, int move) {
-    // lets you specify actions as just small or medium or large
-    int action = 3*player + move;
+void tictactoe3::move(int tile, int action) {
     // first player affects first digit, second affects second, etc.
-    int val = state[tile/3][tile%3];
-    if (val > 3) 
-        state[tile/3][tile%3] += action * 100;
-    else if (val > 0)
-        state[tile/3][tile%3] += action * 10;
+    if (action == 0) 
+        state[tile/3][tile%3] += (player+1) * 100;
+    else if (action == 1)
+        state[tile/3][tile%3] += (player+1) * 10;
     else 
-        state[tile/3][tile%3] = action;
+        state[tile/3][tile%3] += (player+1);
 
     if (is_win(tile, action))
         outcome = player;
@@ -71,17 +68,17 @@ void tictactoe3::unmove(int tile, int action) {
     return;
 }
 
-int hash(Piece p1, Piece p2, Piece p3) { 
-    return p1*100 + p2*10 + p3; 
+int hash(Color c1, Color c2, Color c3) { 
+    return c1*100 + c2*10 + c3; 
 }
 
-Piece* tictactoe3::unhash(int n) {
-    Piece p1 = static_cast<Piece>(n/100);
-    Piece p2 = static_cast<Piece>(n/10 - 10*p1);
-    Piece p3 = static_cast<Piece>(n - 100*p1 - 10*p2);
-    static Piece pieces[3];
-    pieces[0] = p1; pieces[1] = p2; pieces[2] = p3;
-    return pieces;
+Color* tictactoe3::unhash(int n) {
+    Color c1 = static_cast<Color>(n/100);
+    Color c2 = static_cast<Color>(n/10 - 10*c1);
+    Color c3 = static_cast<Color>(n - 100*c1 - 10*c2);
+    static Color colors[3];
+    colors[0] = c1; colors[1] = c2; colors[2] = c3;
+    return colors;
 }
 
 void tictactoe3::display() {
@@ -89,30 +86,20 @@ void tictactoe3::display() {
     string RED = "31";
     string GREEN = "32";
     string BLUE = "34";
+    string pieces[3] = {"S", "M", "L"};
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            Piece *pieces = unhash(state[i][j]);
+            Color *colors = unhash(state[i][j]);
             for (int k = 0; k < 3; k++) {
-                if (pieces[k] == Piece::empty)
+                if (colors[k] == Color::empty)
                     std::cout << "-";
-                else if (pieces[k] == redS)
-                    std::cout << ESC + RED + "m" << "S" << ESC + "m";
-                else if (pieces[k] == redM)
-                    std::cout << ESC + RED + "m" << "M" << ESC + "m";
-                else if (pieces[k] == redL)
-                    std::cout << ESC + RED + "m" << "L" << ESC + "m";
-                else if (pieces[k] == greenS)
-                    std::cout << ESC + GREEN + "m" << "S" << ESC + "m";
-                else if (pieces[k] == greenM)
-                    std::cout << ESC + GREEN + "m" << "M" << ESC + "m";
-                else if (pieces[k] == greenL)
-                    std::cout << ESC + GREEN + "m" << "L" << ESC + "m";
-                else if (pieces[k] == blueS)
-                    std::cout << ESC + BLUE + "m" << "S" << ESC + "m";
-                else if (pieces[k] == blueM)
-                    std::cout << ESC + BLUE + "m" << "M" << ESC + "m";
-                else if (pieces[k] == blueL)
-                    std::cout << ESC + BLUE + "m" << "L" << ESC + "m";
+                else
+                    if (colors[k] == red)
+                        std::cout << ESC + RED + "m" << pieces[k] << ESC + "m";
+                    else if (colors[k] == green)
+                        std::cout << ESC + GREEN + "m" << pieces[k] << ESC + "m";
+                    else if (colors[k] == blue)
+                        std::cout << ESC + BLUE + "m" << pieces[k] << ESC + "m";
             }
             std::cout << " ";
         }

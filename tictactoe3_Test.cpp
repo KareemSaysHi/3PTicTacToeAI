@@ -17,10 +17,10 @@ bool test_equality(int answer[3][3], int state[3][3]) {
 }
 
 TEST_CASE("Testing the display function") {
-    int state[3][3] = {{0,1,3}, {8,5,4}, {3,9,7}};
+    int state[3][3] = {{0,1,2}, {2,1,1}, {3,2,3}};
     auto board = new tictactoe3(state);
     board->display();
-    int state1[3][3] = {{123, 259, 357}, {398, 545, 674}, {731, 880, 987}};
+    int state1[3][3] = {{123, 213, 312}, {222, 112, 321}, {123, 320, 123}};
     auto board1 = new tictactoe3(state1);
     board1->display();
     CHECK(1 == 1);
@@ -29,25 +29,25 @@ TEST_CASE("Testing the display function") {
 TEST_CASE("Testing the move function") {
     auto board = new tictactoe3();
 
-    board->move(6, 1);
+    board->move(6, small);
     auto state = board->state;
     int answer[3][3] = {{0,0,0}, {0,0,0}, {0,0,0}};
-    answer[2][0] = 1;
+    answer[2][0] = 100;
     CHECK(test_equality(answer, state));
 
-    board->move(7, 1);
+    board->move(7, small);
     state = board->state;
-    answer[2][1] = 4;
+    answer[2][1] = 200;
     CHECK(test_equality(answer, state));
 
-    board->move(8, 1);
+    board->move(8, small);
     state = board->state;
-    answer[2][2] = 7;
+    answer[2][2] = 300;
     CHECK(test_equality(answer, state));
 
-    board->move(6, 3);
+    board->move(6, large);
     state = board->state;
-    answer[2][0] = 31;
+    answer[2][0] = 101;
     CHECK(test_equality(answer, state));
 }
 
@@ -56,13 +56,13 @@ TEST_CASE("Testing the win function") {
     SUBCASE("Test Horizontal") {
         auto board = new tictactoe3();
 
-        board->move(0, 1);
-        board->move(1, 1);
-        board->move(2, 1);
-        board->move(0, 2);
-        board->move(1, 2);
-        board->move(2, 2);
-        board->move(0, 3);
+        board->move(0, small);
+        board->move(1, small);
+        board->move(2, small);
+        board->move(0, medium);
+        board->move(1, medium);
+        board->move(2, medium);
+        board->move(0, large);
 
         board->display();
         bool win = board->outcome == 0;
@@ -73,13 +73,13 @@ TEST_CASE("Testing the win function") {
     SUBCASE("Test Vertical") {
         auto board = new tictactoe3();
 
-        board->move(0, 1);
-        board->move(3, 1);
-        board->move(6, 1);
-        // board->move(0, 2);
-        // board->move(3, 2);
-        // board->move(6, 2);
-        // board->move(0, 3);
+        board->move(0, small);
+        board->move(3, small);
+        board->move(6, small);
+        // board->move(0, medium);
+        // board->move(3, medium);
+        // board->move(6, medium);
+        // board->move(0, large);
 
         board->display();
         bool win = board->outcome == 0;
@@ -90,13 +90,13 @@ TEST_CASE("Testing the win function") {
     SUBCASE("Test Diagonal") {
         auto board = new tictactoe3();
 
-        board->move(0, 1);
-        board->move(4, 1);
-        board->move(8, 1);
-        board->move(0, 2);
-        board->move(4, 2);
-        board->move(8, 2);
-        board->move(0, 3);
+        board->move(0, small);
+        board->move(4, small);
+        board->move(8, small);
+        board->move(0, medium);
+        board->move(4, medium);
+        board->move(8, medium);
+        board->move(0, large);
 
         board->display();
         bool win = board->outcome == 0;

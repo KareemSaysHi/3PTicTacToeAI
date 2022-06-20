@@ -2,6 +2,7 @@
 #define tictactoe3_h
 
 #include <cstring>
+#include "colors.h"
 #include "pieces.h"
 class tictactoe3 {
 public:
@@ -25,9 +26,9 @@ public:
 
     bool legal(int tile, int action);
 
-    int hash(Piece p1, Piece p2, Piece p3);
+    int hash(Color c1, Color c2, Color c3);
 
-    Piece* unhash(int n);
+    Color* unhash(int n);
 
     void display();
 };
