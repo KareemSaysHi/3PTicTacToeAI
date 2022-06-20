@@ -64,29 +64,29 @@ TEST_CASE("Testing the win function") {
         auto board = new tictactoe3();
 
         board->move(0, small);
+        board->move(4, small);
+        board->move(5, small);
         board->move(1, small);
+        board->move(4, medium);
+        board->move(5, medium);
         board->move(2, small);
-        board->move(0, medium);
-        board->move(1, medium);
-        board->move(2, medium);
-        board->move(0, large);
 
         board->display();
         bool win = board->outcome == 0;
 
-        CHECK(false);
+        CHECK(win);
     }
 
     SUBCASE("Test Vertical") {
         auto board = new tictactoe3();
 
-        board->move(0, small);
-        board->move(3, small);
-        board->move(6, small);
-        // board->move(0, medium);
-        // board->move(3, medium);
-        // board->move(6, medium);
-        // board->move(0, large);
+        board->move(0, medium);
+        board->move(4, small);
+        board->move(5, small);
+        board->move(3, medium);
+        board->move(4, medium);
+        board->move(5, medium);
+        board->move(6, medium);
 
         board->display();
         bool win = board->outcome == 0;
@@ -98,11 +98,63 @@ TEST_CASE("Testing the win function") {
         auto board = new tictactoe3();
 
         board->move(0, small);
+        board->move(3, small);
+        board->move(2, small);
         board->move(4, small);
-        board->move(8, small);
-        board->move(0, medium);
         board->move(4, medium);
-        board->move(8, medium);
+        board->move(8, large);
+        board->move(8, small);
+
+        board->display();
+        bool win = board->outcome == 0;
+
+        CHECK(win);
+    }
+
+    SUBCASE("Test Main Diagonal ascending") {
+        auto board = new tictactoe3();
+
+        board->move(0, small);
+        board->move(0, medium);
+        board->move(5, small);
+        board->move(4, medium);
+        board->move(3, medium);
+        board->move(2, medium);
+        board->move(8, large);
+
+        board->display();
+        bool win = board->outcome == 0;
+
+        CHECK(win);
+    }
+
+    SUBCASE("Test Off Diagonal ascending") {
+        auto board = new tictactoe3();
+
+        board->move(0, small);
+        board->move(6, small);
+        board->move(0, medium);
+        board->move(5, small);
+        board->move(4, medium);
+        board->move(3, medium);
+        board->move(2, medium);
+        board->move(2, large);
+
+        board->display();
+        bool win = board->outcome == 1;
+
+        CHECK(win);
+    }
+
+    SUBCASE("Test Stack") {
+        auto board = new tictactoe3();
+
+        board->move(0, small);
+        board->move(1, small);
+        board->move(2, medium);
+        board->move(0, medium);
+        board->move(1, medium);
+        board->move(2, medium);
         board->move(0, large);
 
         board->display();
