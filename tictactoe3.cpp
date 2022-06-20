@@ -10,7 +10,9 @@ using namespace std;
 
 tictactoe3::tictactoe3() {
     player = 0;
-    outcome = 0;
+    // ongoing
+    outcome = 4;
+    moves = 0;
 }
 
 tictactoe3::tictactoe3(int board[3][3]) {
@@ -45,9 +47,18 @@ bool tictactoe3::is_win(int tile, int action) {
     return false;
 }
 
-void tictactoe3::move(int tile, int action) {
+void tictactoe3::move(int tile, int move) {
+    // lets you specify actions as just small or medium or large
+    int action = 3*player + move;
     // first player affects first digit, second affects second, etc.
-    state[tile/3][tile%3] += action * pow(10, 2-player);
+    int val = state[tile/3][tile%3];
+    if (val > 3) 
+        state[tile/3][tile%3] += action * 100;
+    else if (val > 0)
+        state[tile/3][tile%3] += action * 10;
+    else 
+        state[tile/3][tile%3] = action;
+
     if (is_win(tile, action))
         outcome = player;
     else if (moves == 27)
@@ -78,19 +89,30 @@ void tictactoe3::display() {
     string RED = "31";
     string GREEN = "32";
     string BLUE = "34";
-    string colors[] = {RED, GREEN, BLUE};
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             Piece *pieces = unhash(state[i][j]);
             for (int k = 0; k < 3; k++) {
                 if (pieces[k] == Piece::empty)
-                    std::cout << " ";
-                else if (pieces[k] == small)
-                    std::cout << ESC + colors[k] + "m" << "S" << ESC + "m";
-                else if (pieces[k] == medium)
-                    std::cout << ESC + colors[k] + "m" << "M" << ESC + "m";
-                else
-                    std::cout << ESC + colors[k] + "m" << "L" << ESC + "m";
+                    std::cout << "-";
+                else if (pieces[k] == redS)
+                    std::cout << ESC + RED + "m" << "S" << ESC + "m";
+                else if (pieces[k] == redM)
+                    std::cout << ESC + RED + "m" << "M" << ESC + "m";
+                else if (pieces[k] == redL)
+                    std::cout << ESC + RED + "m" << "L" << ESC + "m";
+                else if (pieces[k] == greenS)
+                    std::cout << ESC + GREEN + "m" << "S" << ESC + "m";
+                else if (pieces[k] == greenM)
+                    std::cout << ESC + GREEN + "m" << "M" << ESC + "m";
+                else if (pieces[k] == greenL)
+                    std::cout << ESC + GREEN + "m" << "L" << ESC + "m";
+                else if (pieces[k] == blueS)
+                    std::cout << ESC + BLUE + "m" << "S" << ESC + "m";
+                else if (pieces[k] == blueM)
+                    std::cout << ESC + BLUE + "m" << "M" << ESC + "m";
+                else if (pieces[k] == blueL)
+                    std::cout << ESC + BLUE + "m" << "L" << ESC + "m";
             }
             std::cout << " ";
         }

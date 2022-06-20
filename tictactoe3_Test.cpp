@@ -17,10 +17,10 @@ bool test_equality(int answer[3][3], int state[3][3]) {
 }
 
 TEST_CASE("Testing the display function") {
-    int state[3][3] = {{0,1,2}, {2,1,0}, {1,2,2}};
+    int state[3][3] = {{0,1,3}, {8,5,4}, {3,9,7}};
     auto board = new tictactoe3(state);
     board->display();
-    int state1[3][3] = {{0,121,211}, {212,112,103}, {321,312,333}};
+    int state1[3][3] = {{123, 259, 357}, {398, 545, 674}, {731, 880, 987}};
     auto board1 = new tictactoe3(state1);
     board1->display();
     CHECK(1 == 1);
@@ -29,103 +29,78 @@ TEST_CASE("Testing the display function") {
 TEST_CASE("Testing the move function") {
     auto board = new tictactoe3();
 
-    board->move(7, medium);
+    board->move(6, 1);
     auto state = board->state;
-    int answer[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 200, 0}};
-
+    int answer[3][3] = {{0,0,0}, {0,0,0}, {0,0,0}};
+    answer[2][0] = 1;
     CHECK(test_equality(answer, state));
 
-    board->move(7, small);
+    board->move(7, 1);
     state = board->state;
-    answer[2][1] = 210;
-
+    answer[2][1] = 4;
     CHECK(test_equality(answer, state));
 
-    board->move(7, large);
+    board->move(8, 1);
     state = board->state;
-    answer[2][1] = 213;
+    answer[2][2] = 7;
+    CHECK(test_equality(answer, state));
 
+    board->move(6, 3);
+    state = board->state;
+    answer[2][0] = 31;
     CHECK(test_equality(answer, state));
 }
 
-/* TEST_CASE("Testing the unmove function") {
-
-    auto board = new tictactoe3();
-
-    board->move(4);
-    board->move(3);
-    board->move(4);
-    board->move(2);
-
-    board->display();
-    board->unmove(4);
-    board->display();
-    auto state = board->get_state();
-    std::vector<std::vector<int>> answer = {
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, -1, -1, 1, 0, 0}};
-
-    bool equal = compare_boards(state, answer, false);
-
-    CHECK(equal);
-} */
-
-/* TEST_CASE("Testing the win function") {
-
-    SUBCASE("Test Vertical") {
-        auto board = new tictactoe3();
-
-        board->move(4);
-        board->move(2);
-        board->move(4);
-        board->move(2);
-        board->move(4);
-        board->move(2);
-        board->move(4);
-
-        board->display();
-        bool win = board->is_win(4);
-
-        CHECK(win == true);
-    }
+TEST_CASE("Testing the win function") {
 
     SUBCASE("Test Horizontal") {
         auto board = new tictactoe3();
 
-        board->move(0);
-        board->move(0);
-        board->move(1);
-        board->move(0);
-        board->move(2);
-        board->move(0);
-        board->move(3);
+        board->move(0, 1);
+        board->move(1, 1);
+        board->move(2, 1);
+        board->move(0, 2);
+        board->move(1, 2);
+        board->move(2, 2);
+        board->move(0, 3);
 
         board->display();
-        bool win = board->is_win(3);
+        bool win = board->outcome == 0;
 
-        CHECK(win == true);
+        CHECK(false);
+    }
+
+    SUBCASE("Test Vertical") {
+        auto board = new tictactoe3();
+
+        board->move(0, 1);
+        board->move(3, 1);
+        board->move(6, 1);
+        // board->move(0, 2);
+        // board->move(3, 2);
+        // board->move(6, 2);
+        // board->move(0, 3);
+
+        board->display();
+        bool win = board->outcome == 0;
+
+        CHECK(win);
     }
 
     SUBCASE("Test Diagonal") {
         auto board = new tictactoe3();
 
-        board->set_state({
-                        {0, 0, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 0, 1, 0},
-                        {0, 0, 0, 0, 1, -1, 0},
-                        {0, 0, 0, 1, -1, -1, 0},
-                        {1, 1, 1, -1, -1, -1, 0}
-        });
+        board->move(0, 1);
+        board->move(4, 1);
+        board->move(8, 1);
+        board->move(0, 2);
+        board->move(4, 2);
+        board->move(8, 2);
+        board->move(0, 3);
 
         board->display();
+        bool win = board->outcome == 0;
 
-        bool win = board->is_win(5);
-
-        CHECK(win == true);
+        CHECK(win);
     }
-} */
+}
