@@ -71,7 +71,8 @@ bool tictactoe3::is_win(int tile, int action) {
 
 void tictactoe3::move(int tile, int action) {
     state[tile/3][tile%3][action] = static_cast<Color>(player+1);
-
+    moves += 1;
+    
     if (is_win(tile, action))
         outcome = player;
     else if (moves == 27)
