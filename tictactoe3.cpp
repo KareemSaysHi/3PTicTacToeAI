@@ -4,8 +4,8 @@
 
 #include <algorithm>
 #include <iostream>
+#include "cmath"
 #include "tictactoe3.h"
-#include "<cmath>"
 using namespace std;
 
 tictactoe3::tictactoe3() {
