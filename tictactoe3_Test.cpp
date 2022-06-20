@@ -162,4 +162,20 @@ TEST_CASE("Testing the win function") {
 
         CHECK(win);
     }
+
+    SUBCASE("Test False") {
+        auto board = new tictactoe3();
+
+        board->move(0, small);
+        board->move(1, small);
+        board->move(2, medium);
+        board->move(0, medium);
+        board->move(1, medium);
+        board->move(2, medium);
+
+        board->display();
+        bool win = board->outcome == 0;
+
+        CHECK(!win);
+    }
 }
