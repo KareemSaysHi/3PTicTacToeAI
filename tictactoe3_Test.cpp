@@ -6,6 +6,16 @@
 #include "doctest.h"
 #include "tictactoe3.h"
 
+bool test_equality(int answer[3][3], int state[3][3]) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (answer[i][j] != state[i][j])
+                return false;
+        }
+    }
+    return true;
+}
+
 TEST_CASE("Testing the display function") {
     int state[3][3] = {{0,1,2}, {2,1,0}, {1,2,2}};
     auto board = new tictactoe3(state);
@@ -16,38 +26,27 @@ TEST_CASE("Testing the display function") {
     CHECK(1 == 1);
 }
 
-/* TEST_CASE("Testing the move function") {
+TEST_CASE("Testing the move function") {
+    auto board = new tictactoe3();
 
-        auto board = new tictactoe3();
+    board->move(7, medium);
+    auto state = board->state;
+    int answer[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 200, 0}};
 
-        board->move(4);
+    CHECK(test_equality(answer, state));
 
-        board->display();
-        auto state = board->get_state();
-        std::vector<std::vector<int>> answer = {{0, 0, 0, 0, 0, 0, 0},
-                                                {0, 0, 0, 0, 0, 0, 0},
-                                                {0, 0, 0, 0, 0, 0, 0},
-                                                {0, 0, 0, 0, 0, 0, 0},
-                                                {0, 0, 0, 0, 0, 0, 0},
-                                                {0, 0, 0, 0, 1, 0, 0}};
+    board->move(7, small);
+    state = board->state;
+    answer[2][1] = 210;
 
-        bool equal = compare_boards(state, answer, false);
+    CHECK(test_equality(answer, state));
 
-        CHECK(equal);
-        board->move(4);
-        board->display();
-        state = board->get_state();
-        answer = {{0, 0, 0, 0, 0, 0, 0},
-                  {0, 0, 0, 0, 0, 0, 0},
-                  {0, 0, 0, 0, 0, 0, 0},
-                  {0, 0, 0, 0, 0, 0, 0},
-                  {0, 0, 0, 0, -1, 0, 0},
-                  {0, 0, 0, 0, 1, 0, 0}};
+    board->move(7, large);
+    state = board->state;
+    answer[2][1] = 213;
 
-        equal = compare_boards(state, answer, false);
-
-        CHECK(equal);
-} */
+    CHECK(test_equality(answer, state));
+}
 
 /* TEST_CASE("Testing the unmove function") {
 

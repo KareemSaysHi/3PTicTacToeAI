@@ -47,7 +47,7 @@ bool tictactoe3::is_win(int tile, int action) {
 
 void tictactoe3::move(int tile, int action) {
     // first player affects first digit, second affects second, etc.
-    state[tile/3][tile%3] += pow(action, 2-player);
+    state[tile/3][tile%3] += action * pow(10, 2-player);
     if (is_win(tile, action))
         outcome = player;
     else if (moves == 27)
