@@ -6,10 +6,17 @@
 #include "doctest.h"
 #include "tictactoe3.h"
 
-bool test_equality(int answer[3][3], int state[3][3]) {
+using namespace std;
+
+bool test_equality(int answer[3][3], Color state[3][3][3]) {
+    string num;
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            if (answer[i][j] != state[i][j])
+            num = "";
+            for (int k = 0; k < 3; k++) {
+                num += to_string(state[i][j][k]);
+            }
+            if (answer[i][j] != stoi(num))
                 return false;
         }
     }
