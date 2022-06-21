@@ -136,7 +136,7 @@ int* tictactoe3::minimax(Color state, int player) {
     for(int i=0; i < numChildStates; i++){
         tictactoe3::move(childStates[i][0], childStates[i][1]);
         int* eval = minimax(state, player); //player was updated by move func
-        if (*(eval+player) > maxEvaluation[3]) {
+        if (*(eval+player) > maxEvaluation[player]) {
             for (int j = 0; j < 3; j++) {
                 maxEvaluation[i] = *(eval + j);
             }
