@@ -131,7 +131,7 @@ int* tictactoe3::minimax(Color state, int player) {
     vector<array<int, 2>> childStates = tictactoe3::returnLegalMoves(state, player);
     int numChildStates = childStates.size();
 
-    int maxEvaluation[3] = {-1000000, -1000000, -1000000};
+    int maxEvaluation[3] = {-10, -10, -10};
 
     for(int i=0; i < numChildStates; i++){
         tictactoe3::move(childStates[i][0], childStates[i][1]);
@@ -139,6 +139,9 @@ int* tictactoe3::minimax(Color state, int player) {
         if (*(eval+player) > maxEvaluation[player]) {
             for (int j = 0; j < 3; j++) {
                 maxEvaluation[i] = *(eval + j);
+            }
+            if (*(eval+player) == 1) {
+                return maxEvaluation; //immediate pruning
             }
         }
         tictactoe3::unmove(childStates[i][0], childStates[i][1]);
