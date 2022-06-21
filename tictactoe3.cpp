@@ -129,6 +129,28 @@ vector<array<int, 3>> tictactoe3::returnLegalMoves(Color state) {
     return legalMoves;
 }
 
+int* tictactoe3::minimax(Color state, std::string mode) {
+
+    vector<array<int, 3>> childStates = tictactoe3::returnLegalMoves(state);
+    int numChildStates = childStates.size();
+
+    if (mode == "maximizing") {
+        int maxEvaluation = -1000000;
+
+        /*for(int i=0; i < numChildStates; i++){
+            if (childStates[i][2] == player
+            tictactoe3::move()
+            eval = minimax(child, "minimizing");
+            maxEvaluatoin = max(maxEvaluation, eval);
+            return maxEvaluation
+        }
+    } else {
+        minEvalutation = 1000000;
+        for every child of position:*/
+
+    }
+}
+
 
 void tictactoe3::display() {
     string ESC = "\033[";

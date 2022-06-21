@@ -36,6 +36,8 @@ public:
 
     vector<array<int, 3>> returnLegalMoves(Color state);
 
+    int* minimax(Color state, std::string mode = "maximizing");
+
     void display();
 };
 
