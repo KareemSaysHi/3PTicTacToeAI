@@ -2,8 +2,13 @@
 #define tictactoe3_h
 
 #include <cstring>
+#include <vector>
+#include <array>
 #include "colors.h"
 #include "pieces.h"
+
+using std::vector;
+
 class tictactoe3 {
 public:
     int player;
@@ -15,6 +20,7 @@ public:
 
     // change this to have a third index for small/medium/large, hashing unhashing is unnecessary
     Color state[3][3][3];
+    int pieceCounter[3][3];
 
     tictactoe3();
 
@@ -26,7 +32,9 @@ public:
 
     void unmove(int tile, int action);
 
-    bool legal(int tile, int action);
+    bool legal(int tile, int action, int player);
+
+    vector<array<int, 3>> returnLegalMoves(Color state);
 
     void display();
 };

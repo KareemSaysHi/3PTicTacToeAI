@@ -4,6 +4,8 @@
 
 #include <algorithm>
 #include <iostream>
+#include <vector>
+#include <array>
 #include "cmath"
 #include "tictactoe3.h"
 using namespace std;
@@ -77,6 +79,7 @@ bool tictactoe3::is_win(int tile, int action) {
 
 void tictactoe3::move(int tile, int action) {
     state[tile/3][tile%3][action] = static_cast<Color>(player+1);
+    pieceCounter[player][action] += 1; //logging the piece that they played
     moves += 1;
     
     if (is_win(tile, action))
@@ -87,9 +90,43 @@ void tictactoe3::move(int tile, int action) {
 }
 
 void tictactoe3::unmove(int tile, int action) {
-    // this may not be needed.
-    return;
+    if (state[tile/3][tile%3][action] == Color::empty) {
+        state[tile/3][tile%3][action] = static_cast<Color>(0);
+        pieceCounter[player][action] -= 1;
+        moves -= 1;
+        player -= 1;
+    }
 }
+
+bool tictactoe3::legal(int tile, int action, int player) {
+    if (state[tile/3][tile%3][action] == Color::empty) {
+        if (pieceCounter[player][action] > 3) {
+            return false;
+        }
+        return true;
+    }
+    return false;
+}
+
+vector<array<int, 3>> tictactoe3::returnLegalMoves(Color state) {
+    //we return an array: [player1 valid moves, player2 valid moves, player3 valid moves
+    //inside each index is 1D array of length 9, which are all the tiles of the board
+    //inside all of THOSE indexes are a 1D array of length 3, which store which pieces can be played
+
+    vector<array<int, 3>> legalMoves; //player, tile, size
+    for (int tile = 0; tile < 9; tile++) {
+        for (int pieceSize = 0; pieceSize < 3; pieceSize++) {
+            for (int play = 0; play < 3; play++) {
+                if (tictactoe3::legal(tile, pieceSize, play)) {
+                    //log in legal moves array
+                    int holder[3] = {play, tile, pieceSize};
+                    legalMoves.push_back(holder);
+                }
+            }
+        }
+    }
+}
+
 
 void tictactoe3::display() {
     string ESC = "\033[";
