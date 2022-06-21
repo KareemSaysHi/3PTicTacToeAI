@@ -94,7 +94,7 @@ void tictactoe3::unmove(int tile, int action) {
         state[tile/3][tile%3][action] = static_cast<Color>(0);
         pieceCounter[player][action] -= 1;
         moves -= 1;
-        player -= 1;
+        player = (player - 1) % 3;
     }
 }
 
@@ -108,20 +108,17 @@ bool tictactoe3::legal(int tile, int action, int player) {
     return false;
 }
 
-vector<array<int, 3>> tictactoe3::returnLegalMoves(Color state) {
-    //we return an array: [player1 valid moves, player2 valid moves, player3 valid moves
-    //inside each index is 1D array of length 9, which are all the tiles of the board
+vector<array<int, 2>> tictactoe3::returnLegalMoves(Color state, int player) {
+    //1D array of length 9, which are all the tiles of the board
     //inside all of THOSE indexes are a 1D array of length 3, which store which pieces can be played
 
-    vector<array<int, 3>> legalMoves; //player, tile, size
+    vector<array<int, 2>> legalMoves; //player, tile, size
     for (int tile = 0; tile < 9; tile++) {
         for (int pieceSize = 0; pieceSize < 3; pieceSize++) {
-            for (int play = 0; play < 3; play++) {
-                if (tictactoe3::legal(tile, pieceSize, play)) {
-                    //log in legal moves array
-                    array<int, 3> holder = {play, tile, pieceSize};
-                    legalMoves.push_back(holder);
-                }
+            if (tictactoe3::legal(tile, pieceSize, player)) {
+                //log in legal moves array
+                array<int, 2> holder = {tile, pieceSize};
+                legalMoves.push_back(holder);
             }
         }
     }
@@ -129,26 +126,25 @@ vector<array<int, 3>> tictactoe3::returnLegalMoves(Color state) {
     return legalMoves;
 }
 
-int* tictactoe3::minimax(Color state, std::string mode) {
+int* tictactoe3::minimax(Color state, int player) {
 
-    vector<array<int, 3>> childStates = tictactoe3::returnLegalMoves(state);
+    vector<array<int, 2>> childStates = tictactoe3::returnLegalMoves(state, player);
     int numChildStates = childStates.size();
 
-    if (mode == "maximizing") {
-        int maxEvaluation = -1000000;
+    int maxEvaluation[3] = {-1000000, -1000000, -1000000};
 
-        /*for(int i=0; i < numChildStates; i++){
-            if (childStates[i][2] == player
-            tictactoe3::move()
-            eval = minimax(child, "minimizing");
-            maxEvaluatoin = max(maxEvaluation, eval);
-            return maxEvaluation
+    for(int i=0; i < numChildStates; i++){
+        tictactoe3::move(childStates[i][0], childStates[i][1]);
+        int* eval = minimax(state, player); //player was updated by move func
+        if (*(eval+player) > maxEvaluation[3]) {
+            for (int j = 0; j < 3; j++) {
+                maxEvaluation[i] = *(eval + j);
+            }
         }
-    } else {
-        minEvalutation = 1000000;
-        for every child of position:*/
+        tictactoe3::unmove(childStates[i][0], childStates[i][1]);
 
     }
+    return maxEvaluation;
 }
 
 

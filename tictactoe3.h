@@ -34,9 +34,9 @@ public:
 
     bool legal(int tile, int action, int player);
 
-    vector<array<int, 3>> returnLegalMoves(Color state);
+    vector<array<int, 2>> returnLegalMoves(Color state, int player);
 
-    int* minimax(Color state, std::string mode = "maximizing");
+    int* minimax(Color state, int player);
 
     void display();
 };
