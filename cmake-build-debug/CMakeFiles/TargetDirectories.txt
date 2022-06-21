@@ -1,0 +1,3 @@
+C:/Users/karee/OneDrive/Desktop/3PTicTacToeAI/cmake-build-debug/CMakeFiles/TICTACTOE3_tests.dir
+C:/Users/karee/OneDrive/Desktop/3PTicTacToeAI/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/karee/OneDrive/Desktop/3PTicTacToeAI/cmake-build-debug/CMakeFiles/rebuild_cache.dir

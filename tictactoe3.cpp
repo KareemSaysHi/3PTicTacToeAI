@@ -33,6 +33,12 @@ tictactoe3::tictactoe3(int board[3][3]) {
 }
 
 bool tictactoe3::is_win(int tile, int action) {
+    //tile is:
+    // 0 1 2
+    // 3 4 5
+    // 6 7 8
+    //action is size of piece (small medium big -> 1 2 3)
+
     int i = tile/3;
     int j = tile%3;
 

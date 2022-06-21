@@ -1,0 +1,5 @@
+kareem's to do list for tomorrow morning:
+
+- make function that returns all valid moves left (10 min?)
+- write minimax class (20 min?)
+- put stuff together (idk)
