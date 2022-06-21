@@ -119,12 +119,14 @@ vector<array<int, 3>> tictactoe3::returnLegalMoves(Color state) {
             for (int play = 0; play < 3; play++) {
                 if (tictactoe3::legal(tile, pieceSize, play)) {
                     //log in legal moves array
-                    int holder[3] = {play, tile, pieceSize};
+                    array<int, 3> holder = {play, tile, pieceSize};
                     legalMoves.push_back(holder);
                 }
             }
         }
     }
+
+    return legalMoves;
 }
 
 
