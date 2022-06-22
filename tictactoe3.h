@@ -35,9 +35,9 @@ public:
 
     bool legal(int tile, int action, int player);
 
-    vector<array<int, 2>> returnLegalMoves(Color state, int player);
+    vector<array<int, 2>> returnLegalMoves(int player);
 
-    int* minimax(Color state, int player);
+    int* minimax(int player);
     
     void display();
 };

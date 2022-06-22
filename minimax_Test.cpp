@@ -25,7 +25,7 @@ TEST_CASE("Testing basic case") {
     int state[3][3] = {{0,1,2}, {2,1,1}, {3,10,3}};
     auto board = new tictactoe3(state);
     board->display();
-    auto result = board->minimax(red, 0);
-    std::cout << result[0] << " " << result[1] << "\n";
+    auto result = board->minimax(0);
+    std::cout << result[0] << " " << result[1] <<  " " << result[2] << "\n";
     CHECK(1 == 1);
 }
