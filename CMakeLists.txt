@@ -12,6 +12,12 @@ set(SOURCES "$tictactoe3.cpp")
 
 set(TICTACTOE3_TESTS "tictactoe3_Test.cpp")
 
+set(MINIMAX_TESTS "minimax_Test.cpp")
+
 add_executable(TICTACTOE3_tests ${TICTACTOE3_TESTS} "tictactoe3.cpp")
 
+add_executable(MINIMAX_tests ${MINIMAX_TESTS} "tictactoe3.cpp")
+
 target_link_libraries(TICTACTOE3_tests PRIVATE m)
+
+target_link_libraries(MINIMAX_tests PRIVATE m)

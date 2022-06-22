@@ -8,6 +8,7 @@
 #include "pieces.h"
 
 using std::vector;
+using std::array;
 
 class tictactoe3 {
 public:
@@ -37,7 +38,7 @@ public:
     vector<array<int, 2>> returnLegalMoves(Color state, int player);
 
     int* minimax(Color state, int player);
-
+    
     void display();
 };
 
